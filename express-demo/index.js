@@ -14,8 +14,8 @@ const app = express();
 // setting up view engine or templating engine
 app.set('view engine', 'pug');
 
-// console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
-// console.log(`NODE_ENV: ${app.get('env')}`);
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
+console.log(`NODE_ENV: ${app.get('env')}`);
 
 // this enables the parsing of json object that we get from the request body
 // express.json returns us the middleware that use in our app request processing pipeline
