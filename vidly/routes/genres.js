@@ -18,7 +18,7 @@ const genreSchema = new mongoose.Schema({
 });
 
 // create a model for this genres
-const genreModel = mongoose.model('genre', genreSchema);
+const Genre = mongoose.model('genre', genreSchema);
 
 
 // let genres = [
@@ -30,8 +30,11 @@ const genreModel = mongoose.model('genre', genreSchema);
 
 
 // Setting an endpoint for getting all genres
-router.get('/', (req, res) => {
-  res.send(genres);
+router.get('/', async (req, res) => {
+  const result = await Genre
+  .find()
+  .sort({name: 1});
+  res.send(result);
 });
 
 //setting up an endpoint to get a genres by id
