@@ -1,16 +1,32 @@
 // loading express into module
 const express = require('express');
 const Joi = require('joi');
+const mongoose = require('mongoose');
 
 // this returns a router object 
 const router = express();
 
-let genres = [
-  {id: 1, name: "Action"},
-  {id: 2, name: "horror"},
-  {id: 3, name: "Drama"},
-  {id: 4, name: "Comedy"},
-];
+// define a schema for genre 
+const genreSchema = new mongoose.Schema({ 
+  name: {
+    type: String,
+    required: true,
+    minlength: 5,
+    maxlength: 50
+  }
+
+});
+
+// create a model for this genres
+const genreModel = mongoose.model('genre', genreSchema);
+
+
+// let genres = [
+//   {id: 1, name: "Action"},
+//   {id: 2, name: "horror"},
+//   {id: 3, name: "Drama"},
+//   {id: 4, name: "Comedy"},
+// ];
 
 
 // Setting an endpoint for getting all genres
