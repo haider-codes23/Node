@@ -1,18 +1,10 @@
 const express = require('express');
 const Joi = require('joi');
 const mongoose = require('mongoose');
+const Customer = require('../models/customerModel'); 
 
 // this returns a router object 
 const router = express.Router();
-
-// define a schema for customers
-const customerSchema = new mongoose.Schema({ 
-  isGold: {type: Boolean, default: false}, 
-  name: {type: String, required: true, minlength: 5, maxlength: 50},
-  phone: {type: String, required: true, minlength: 5, maxlength: 50}
-});
-
-const Customer = mongoose.model('customer', customerSchema);
 
 // Endpoint for getting all the customers from the mongoDb database
 router.get('/',async (req, res) => {
@@ -21,12 +13,12 @@ router.get('/',async (req, res) => {
 });
 
 //Endpoint for getting a single customer using id
-router.get('/:id', async (Req, res) => {
+router.get('/:id', async (Req, res) => { 
   const customer = await Customer.findById(req.params.id);
 
   if (!customer) return res.status(404).send(`customer with id: ${req.params.id} not found`);
   res.send(customer);
-})
+});
 
 //End point for creating a new customer
 router.post('/', async (req, res) => {
