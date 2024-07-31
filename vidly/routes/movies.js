@@ -22,6 +22,13 @@ router.get('/', async (req, res) => {
   res.send(movies);
 });
 
+//endpoint for getting a movie using ID
+router.get('/:id', async (req, res) => {
+  const movie = await Movie.findById(req.params.id);
+  if (!movie) return res.status(404).send(`Movie with ID: ${req.params.id} not found`);
+  res.send(movie);
+})
+
 //End point for creating a movie
 router.post('/', async(req, res) => {
   const schema = Joi.object({
@@ -66,5 +73,14 @@ router.put('/:id', async (req, res) => {
   if (!movie) return res.status(404).send(`Movie with ID: ${req.params.id} not found`);
   res.send(movie);
 });
+
+// Endpoint for deleting a movie
+router.delete('/:id', async (req, res) => {
+  const movie = await Movie.findByIdAndDelete(req.params.id);
+  if (!movie) return res.status(404).send(`The Movie with ID: ${req.parmas.id} was not found`);
+  res.send(movie);
+})
+
+
 
 module.exports = router;
