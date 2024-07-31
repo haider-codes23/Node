@@ -2,6 +2,7 @@ const express = require('express');
 const Joi = require('joi');
 const genre = require('./routes/genres');
 const customer = require('./routes/customers');
+const movie = require('./routes/movies');
 const mongoose = require('mongoose');
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(express.json());
 
 app.use('/api/genres', genre);
 app.use('/api/customers', customer);
+app.use('/api/movies', movie);
 
 
 
