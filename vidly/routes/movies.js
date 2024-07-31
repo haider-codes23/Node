@@ -1,17 +1,8 @@
 const mongoose = require("mongoose");
 const express = require('express');
-const {Genre, genreSchema} = require('../models/genresModel')
+const Movie = require("../models/movieModel");
 const Joi = require('joi');
 
-// creating a Schema
-const movieSchema = new mongoose.Schema({
-  title: String,
-  genre: genreSchema,
-  numberInStock: Number,
-  dailyRentalRate: Number
-});
-
-const Movie = mongoose.model('movie', movieSchema);
 
 const router = express();
 
