@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const Customer = require('../models/customerModel'); 
 
 // this returns a router object 
-const router = express.Router();
+const router = express();
 
 // Endpoint for getting all the customers from the mongoDb database
 router.get('/',async (req, res) => {
@@ -13,7 +13,7 @@ router.get('/',async (req, res) => {
 });
 
 //Endpoint for getting a single customer using id
-router.get('/:id', async (Req, res) => { 
+router.get('/:id', async (req, res) => { 
   const customer = await Customer.findById(req.params.id);
 
   if (!customer) return res.status(404).send(`customer with id: ${req.params.id} not found`);
@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
   const result = schema.validate(req.body);
   if(result.error) return res.send(400).send(result.error.message);
 
-  let customer = Customer({
+  let customer = new Customer({
     isGold: req.body.isGold,
     name: req.body.name,
     phone: req.body.phone
