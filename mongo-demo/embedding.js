@@ -13,10 +13,12 @@ const authorSchema = new mongoose.Schema({
 
 const Author = mongoose.model('Author', authorSchema);
 
-const Course = mongoose.model('Course', new mongoose.Schema({
+const courseSchema = new mongoose.Schema({
   name: String,
   authors: [authorSchema]
-}));
+})
+
+const Course = mongoose.model('Course', courseSchema);
 
 async function createCourse(name, authors) {
   const course = new Course({
