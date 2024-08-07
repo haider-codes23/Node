@@ -2,30 +2,48 @@
 const express = require('express');
 const Joi = require('joi');
 const mongoose = require('mongoose');
-const Genre = require('../models/genresModel');
+const {Genre, genreSchema} = require('../models/genresModel');
+const auth = require('../middleware/auth');
+const error = require('../middleware/error');
+const { exceptions } = require('winston');
 
 // this returns a router object 
 const router = express();
 
 
-// let genres = [
-//   {id: 1, name: "Action"},
-//   {id: 2, name: "horror"},
-//   {id: 3, name: "Drama"},
-//   {id: 4, name: "Comedy"},
-// ];
+function asyncMiddleware(routeHandler) {
+  return (req, res, next) => {
+    try {
+      //.. execute the route handler code which will vary from one route
+      // handler to another
+      routeHandler(req, res, next);
+    } catch (exception) {
+      next(exception);
+    }
+
+  }
+};
 
 
 // Setting an endpoint for getting all genres
-router.get('/', async (req, res) => {
-  const result = await Genre
-  .find()
-  .sort({name: 1});
-  res.send(result);
+router.get('/',async (req, res, next) => {
+  try{
+
+    throw new Error("Could not get the Genres");
+  } catch (exception) {
+    next(exception);
+  }
+  
+
+  // const result = await Genre
+  // .find()
+  // .sort({name: 1});
+  // res.send(result);
+  
 });
 
 // setting an endpoint for creating a Genre
-router.post('/', async (req, res) => {
+router.post('/', auth, async (req, res) => {
   const schema = Joi.object({
     name: Joi.string().min(5).max(50).required()
   });
