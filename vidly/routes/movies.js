@@ -28,10 +28,10 @@ router.post('/', async(req, res) => {
     numberInStock: Joi.number(),
     dailyRentalRate: Joi.number()
   });
-  const result = schema.validate();
+  const result = schema.validate(req.body);
   if(result.error) return res.status(400).send(result.error.message);
 
-  let movie = Movie({
+  let movie = new Movie({
     title: req.body.title,
     genre: req.body.genre,
     numberInStock: req.body.numberInStock,
@@ -51,7 +51,7 @@ router.put('/:id', async (req, res) => {
     dailyRentalRate: Joi.number()
   });
 
-  const result = schema.validate();
+  const result = schema.validate(req.body);
   if (result.error) return res.status(400).send(result.error.message);
 
   const movie = await Movie.findByIdAndUpdate(req.params.id, {
